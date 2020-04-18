@@ -1,38 +1,26 @@
-import sqlite3
+t = int(input())
+while t != 0:
+    t -= 1
+    n = int(input())
+    arr = []
+    for i in range(n):
+        r = input()
+        arr.append(r)
 
-conn = sqlite3.connect('emaildb2.sqlite')
-cur = conn.cursor()
+    maxi = max(arr)
+    pos = arr.index(max(arr))
+    count = 0
 
-cur.execute('''
-DROP TABLE IF EXISTS Counts''')
+    for i in range(pos, len(arr)):
+        if pos == len(arr) - 1:
+              k = -1
+        elif pos < len(arr) - 1 and pos >= 0:
+              k = (arr[pos+1])
+        k = int(k)      
+        while k != 0 and k != -1:
+                k = k/2
+                count += 1
+                pos += 1
+                print(count)
 
-cur.execute('''
-CREATE TABLE Counts (org TEXT, count INTEGER)''')
-
-fname = input('Enter file name: ')
-if (len(fname) < 1): fname = 'mbox.txt'
-fh = open(fname)
-list_1 =[]
-for line in fh:
-    if not line.startswith('From: '): continue
-    pieces = line.split()
-    email = pieces[1]
-    dom = email.find('@')
-    org = email[dom+1:len(email)]
-
-    cur.execute('SELECT count FROM Counts WHERE org = ? ', (org,))
-    row = cur.fetchone()
-    if row is None:
-        cur.execute('''INSERT INTO Counts (org, count)
-                VALUES (?, 1)''', (org,))
-    else:
-        cur.execute('UPDATE Counts SET count = count + 1 WHERE org = ?',
-                    (org,))
-        conn.commit()
-# https://www.sqlite.org/lang_select.html
-sqlstr = 'SELECT org, count FROM Counts ORDER BY count DESC LIMIT 10'
-
-for row in cur.execute(sqlstr):
-    print(str(row[0]), row[1])
-
-cur.close()
+    print(count)
