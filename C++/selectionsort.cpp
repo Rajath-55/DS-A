@@ -20,3 +20,7 @@ vector<int> selectionSort(vector<int> array) {
 	
   return {array};
 }
+
+101-109
+121-129(-122)
+131-139(-133)
