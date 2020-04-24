@@ -1,24 +1,13 @@
-n= int(input())
-s = str(input())
-s = s.lower()
-flag=0
-st = 'abcdefghijklmnopqrstuvwxyz'
-counts = dict()
-a = 'a'
-for i in range(1,27):
-    counts[a]=0
-    a = chr(ord(a)+1)
-for i in range(len(s)):
-    for j in range (len(st)):
-        if s[i]==st[j]:
-            counts[s[i]]=counts.get(s[i], 0) + 1;
-print(counts)            
-for i in counts.values():
-    if i==0:
-        flag=1
-        break
-if flag:
-    print("NO")
+t = int(input())
+while t!=0:
+    t -=1
+    n,a,b,c,d = map(int, input().strip().split())
+    mini = (a-b)*n
+    maxi = (a+b)*n
+    maxisum = c+d
+    minisum = c-d
+    if mini>=minisum and mini<=maxisum or maxi>=minisum and maxi <=maxisum or mini<minisum and maxi>maxisum:
+        print("Yes")
+    else:
+        print("No")
     
-else:
-    print("YES")
