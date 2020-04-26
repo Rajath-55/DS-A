@@ -1,55 +1,38 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL)
-typedef long long ll;
-typedef long int l;
+
+// Complete the repeatedString function below.
+void repeatedString(string s, long n) {
+     long count =0;
+     long length = s.length();
+     cout<<length<<endl;
+     string s1=s;
+     for(long i=0;i<=(n/s.length());++i){
+         s +=s1;
+     }
+     for(int i=0;i<n%length;++i){
+          s +=s1[i];
+     }
+
+     
+     for(long i=0;i<s.length();++i){
+         if(s[i]=='a')
+         count++;
+     }
+     cout<<s;
+    //  return count;
+
+
+}
 int main(){
-    fastio();
-    int t;
-    cin>>t;
-    while(t--){
-        int n,k;
-        cin>>n>>k;
-        l a[n];
-        for(int i=0;i<n;++i){
-            cin>>a[i];
-        }
-        int max=-1;
-        int count =0;
-        int pos=-1;
-        for(int i=0;i<n;++i){
-            if(i+k-1<n){ 
-            for(int j=i+1;j<i+k-1;++j){
-                if(a[j-1]<a[j]&&a[j]>a[j+1]){
-                    count ++;
-                }
-                pos = i;
-            }
-            
-            if(count>max){
-                max=count;
-                pos=i;
-            }
-            }
-        }
-        cout<<max + 1<<" "<<pos+1<<endl;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    return(0);
+  int n; 
+  string s;
+  cin>>n;
+  cin>>s;
+
+  // int res = repeatedString(s,n);
+  // cout<<s<<endl;
+  // cout<<res<<endl
+  repeatedString(s,n);
 }
