@@ -1,48 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
-
-// typedef long int l;
-// long long int fact(int n){
-//     if(n==0)
-//     return 1;
-//     else if(n==1)
-//     return 1;
-//     else 
-//     return n*fact(n-1);
-// }
-int main(){
-    fastio();
-    int t;
-    long int   n,a,b;
-    cin>>t;
-    while(t--){
-        cin>>n>>a>>b;
-        char ch = 'a';
-        
-       for(int i = 0;i<b;++i){
-           cout<<ch;
-           ch++;
-       }
-        
-        
+unsigned power_ceil(unsigned x) {
+    if (x <= 1) return 1;
+    int power = 2;
+    x--;
+    while (x >>= 1) power <<= 1;
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    if(x&(x-1)==0){
+        power*=2;
     }
-    
-    
-    
-    
-    
-    
-    return(0);
+    return power;
+}
+int main(){
+   unsigned int x;
+   unsigned int res=power_ceil(2);
+   
+   cout<<res<<endl;
 }

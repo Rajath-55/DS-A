@@ -1,116 +1,75 @@
 #include <stdio.h>
-
-void main()
+#include <string.h>
+int foundVowel(char *c)
 {
-    int A[10] = {4, 9, 6, 12, 2, 8, 6, 3, 1, 7};
-    int a = 10, mid, end, B[10], size = 1;
-
-    while (size <= a)
+    int foundvowel = 0;
+    int count = 0;
+    for (int i = 0; i < strlen(c); ++i)
     {
-        int i, j, k = 0, start = 0;
-
-        while (start + size <= a)
+        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
         {
-            mid = start + size;
-            end = start + 2 * size - 1;
-
-            if (end >= a)
-            {
-                end = a - 1;
-            }
-
-            i = start;
-            j = mid;
-
-            while ((i < mid) && (j <= end))
-            {
-                if (A[i] <= A[j])
-                {
-                    B[k++] = A[i++];
-                }
-                else
-                {
-                    B[k++] = A[j++];
-                }
-            }
-
-            while (i < mid)
-            {
-                B[k++] = A[i++];
-            }
-
-            while (j <= end)
-            {
-                B[k++] = A[j++];
-            }
-            start = end + 1;
+            count++;
+            foundvowel = 1;
         }
-
-        for (i = start; k < a; i++)
-        {
-            B[k++] = A[i];
-        }
-
-        i = 0;
-        while (i < a)
-        {
-            int temp = A[i];
-            A[i] = B[i];
-            B[i] = temp;
-            i = i + 1;
-        }
-
-        size = 2 * size;
     }
-    for (int i = 0; i < a; i++)
-    {
-        printf("%d ", A[i]);
-    }
+    return foundvowel;
 }
-
-Time Complexity - O(a / 2)
-
-                      For merge.c
-    -
-
-    void main()
+void solve(char *c)
 {
-    int A[4] = { 2,
-                 4,
-                 6,
-                 8 } int B[5] = {3, 6, 9, 11, 12};
-    int a = 4, b = 5;
-    int C[10];
-    int c = 0;
-    int i = 0;
-    int j = 0;
-    while (i < a && j < b)
+    int posvowel = -1;
+    int pos = -1;
+    // int count = 0;
+    // int foundvowel = 1;
+
+    for (int i = strlen(c)-1; i >=0; --i)
     {
-        if (A[i] <= B[j])
+        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
         {
-            C[c] = A[i];
-            c = c + 1;
-            i = i + 1;
+            posvowel = i;
+            break;
+        }
+    }
+    if (posvowel > 0)
+    {
+
+        for (int i = posvowel - 1; i >= 0; i--)
+        {
+            if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
+            {
+                pos = i;
+                c[i] += 1;
+                break;
+            }
+            else
+            {
+                c[i] = (c[i] + 1 <= 122 ? c[i] + 1 : c[i]);
+            }
+        }
+    }
+    for (int i = (pos >= 0 ? pos+1 : 1); i < strlen(c); ++i)
+    {
+        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
+        {
+            c[i] += 1;
+            break;
         }
         else
         {
-            C[c] = B[j];
-            c = c + 1;
-            j = j + 1;
+            c[i] = (c[i] + 1 <= 122 ? c[i] + 1 : c[i]);
         }
     }
+}
 
-    while (i < a)
-    {
-        C[c] = A[i];
-        c = c + 1;
-        i = i + 1;
+int main()
+{
+    char c[100000];
+    scanf("%s", c);
+    int ifvowel = foundVowel(c);
+    
+    while(ifvowel){
+        solve(c);
+        ifvowel=foundVowel(c);
     }
 
-    while (j < b)
-    {
-        C[c] = B[j];
-        b = b + 1;
-        j = j + 1;
-    }
+    printf("%s\n", c);
 }

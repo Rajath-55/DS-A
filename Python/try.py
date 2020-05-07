@@ -2,25 +2,11 @@ t = int(input())
 while t != 0:
     t -= 1
     n = int(input())
-    arr = list(map(int, input().strip().split()))
     count = 0
-    res = dict()
-    for i in range(len(arr)):
-        if i != len(arr)-1:
-            if arr[i] > 0 and arr[i+1] < 0 or arr[i] < 0 and arr[i+1] > 0:
-                count += 1
-                res[arr[i]]= arr[i+1]
-               
+    for i in range(30000, 0, -1):
+        s = int(i*(3*i+1)/2)
+        while s<=n:
+            count +=1
+            n -=s
 
-            else:
-                count = 0
-        else:
-            if arr[i] > 0 and arr[i-1] < 0 or arr[i] < 0 and arr[i-1] > 0:
-                count += 1
-                res[arr[i]]=arr[i-1]
-                
-            else:
-                count = 0
-
-    print(count)
-    print(res)
+    print(count)   

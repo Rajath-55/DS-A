@@ -1,28 +1,16 @@
-from bs4 import BeautifulSoup as bs
 import requests
-import re
+import csv
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup as bs
 url = "https://www.worldometers.info/coronavirus/"
 data = requests.get(url).text
-lst = list()
+# print(data)
 soup = bs(data, 'html.parser')
 table = soup.find('table', {'id': 'main_table_countries_today'})
-thead = soup.find('thead')
-tbody = soup.find('tbody')
-body = []
-head=[]
-for text in tbody.findAll('tr'):
-    string = str(text.text.strip().split())
-    string=string[1:-1]
-    body.append(string)
-# print(body) 
-# for text in thead.find('tr'):
-#     for stats in text.find('th'):
-#         string = str(text.text.strip().split())
-#         string=string[1:-1]
-#         head.append(string)
-    
-print(head)    
-
-with open('corona.txt', 'w') as file:
-    for items in body:
-        file.write("%s\n" % items)
+# print(type(table))
+# print(table)
+headers = [th.text.encode("utf-8") for th in table.select("tr th")]
+with open("COVID.csv", "w") as f:
+    wr = csv.writer(f)
+    wr.writerow(headers)
+    wr.writerows([[td.text.encode("utf-8").strip() for td in row.find_all("td")] for row in table.select("tr + tr")])
