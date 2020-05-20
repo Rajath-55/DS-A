@@ -1,54 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL)
-// typedef long long ll;
-// typedef long int l;
-unsigned long int nextpowerof2(unsigned long int n)
-{
-    unsigned long int next = pow(2, ceil(log(n) / log(2)));
-    return next;
+typedef long long ll;
+typedef long int l;
+string caesarCypherEncryptor(string str, int key) {
+  // Write your code here.
+	key%=26;
+    key=26-key+1;
+	vector<char>result;
+	for(int i=0;i<str.length();++i){
+       
+		int newcode = str[i] + key;
+		newcode = newcode<=122 ? newcode : 96 +newcode%122;
+		result.push_back(newcode);
+       
+	}
+	return string(result.begin(), result.end());
 }
-unsigned long int pow2(unsigned long int r)
-{
-    long int res = (int)log2(r);
-    return (int)pow(2, res);
-}
+
 int main()
 {
-    fastio();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        unsigned long int x, y, l, r;
-        cin >> x >> y >> l >> r;
-        long int res;
-
-        unsigned long int prev = pow2(r + 1) - 1;
-        unsigned long long int m, z, k, w,p,o,u,v;
-
-        unsigned long int next;
-        if (nextpowerof2(l) == l)
-        {
-            next = 2 * nextpowerof2(l) - 1;
+    // fastio();
+    string s1,s2;
+    getline(cin, s1);
+    for(int i=0;i<=4;++i){
+    s2=caesarCypherEncryptor(s1,i);
+    for(int i=0;i<s2.length();++i){
+        if(s2[i]<97 || s2[i]>122){
+            s2[i]=' ';
         }
-        else
-        {
-            next = nextpowerof2(l) - 1;
-        }
-
-        bool ifprev = false, ifnext = false;
-        if (prev <= r && prev >= l)
-            ifprev = true;
-        if (next >= l && next <= r)
-            ifnext = true;
-        m = (x & prev) * (y & prev);
-        z = (x & next) * (y & next);
-        k = (l & x) * (l & y);
-        w = (r & x * r & y);
-    
-
-        
-
-        return (0);
     }
+    cout<<i<<" "<<s2<<endl;
+    }
+    }
+
+    // 8 12 4

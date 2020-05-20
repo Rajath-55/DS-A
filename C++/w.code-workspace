@@ -1,0 +1,24 @@
+{
+    "folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../html"
+		},
+		{
+			"path": "../../Rajath-55.github.io"
+		}
+	],
+    "settings": {
+        "files.associations": {
+            "iostream": "cpp",
+            "ostream": "cpp",
+            "functional": "c"
+        },
+        "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Droid ns Fallback'",
+        "liveServer.settings.multiRootWorkspaceName": "Rajath-55.github.io"
+            // "editor.fontFamily": "Roboto",
+            // "editor.fontLigatures": true,
+    }
+}
