@@ -1,75 +1,157 @@
 #include <stdio.h>
-#include <string.h>
-int foundVowel(char *c)
-{
-    int foundvowel = 0;
-    int count = 0;
-    for (int i = 0; i < strlen(c); ++i)
-    {
-        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
-        {
-            count++;
-            foundvowel = 1;
-        }
+
+int check(char a){
+    if(a=='a'|| a=='e' || a=='i' || a=='o' || a=='u' || a=='y'){
+        return 1;
+    }else{
+        return 0;
     }
-    return foundvowel;
 }
-void solve(char *c)
-{
-    int posvowel = -1;
-    int pos = -1;
-    // int count = 0;
-    // int foundvowel = 1;
 
-    for (int i = strlen(c)-1; i >=0; --i)
-    {
-        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
-        {
-            posvowel = i;
-            break;
+void incr(char str[]){
+    for(int i=0; str[i]!='\0'; i++){
+        if(str[i]==' '){
+            continue;
         }
-    }
-    if (posvowel > 0)
-    {
-
-        for (int i = posvowel - 1; i >= 0; i--)
-        {
-            if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
-            {
-                pos = i;
-                c[i] += 1;
-                break;
-            }
-            else
-            {
-                c[i] = (c[i] + 1 <= 122 ? c[i] + 1 : c[i]);
-            }
-        }
-    }
-    for (int i = (pos >= 0 ? pos+1 : 1); i < strlen(c); ++i)
-    {
-        if (c[i] == 'a' || c[i] == 'e' || c[i] == 'i' || c[i] == 'o' || c[i] == 'u')
-        {
-            c[i] += 1;
-            break;
-        }
-        else
-        {
-            c[i] = (c[i] + 1 <= 122 ? c[i] + 1 : c[i]);
+        if(str[i]=='z'){
+            str[i]='a';
+        }else{
+            str[i]++;
         }
     }
 }
 
-int main()
-{
-    char c[100000];
-    scanf("%s", c);
-    int ifvowel = foundVowel(c);
+int main(int arg, int *A){
     
-    while(ifvowel){
-        solve(c);
-        ifvowel=foundVowel(c);
+    char str[100000];
+    int count[26], ycount[26];
+    scanf("%[^\n]", str);
+    printf("\n");
+    int n;
+    for(n=0; str[n]!='\0'; n++);
+    for(int j=0; j<26; j++){
+        
+        int max=0, vow=0, ok=0;
+        incr(str);
+
+        for(int i=0; str[i]!='\0'; i++){
+
+            if(str[i]==' '){
+
+                if(ok==0){
+                    max=1000;
+                    break;
+                }else{
+                    if(vow>=max){
+                        max=vow;
+                    }
+                }
+                ok=0;
+                vow=0;
+                continue;
+            }
+
+            if(check(str[i])){
+                if(vow>=max){
+                    max=vow;
+                }
+                ok=1;
+                vow=0;
+            }else{
+                vow++;
+            }
+        }
+
+        if(ok==0){
+            max=1000;
+        }
+
+        if(vow>=max){
+            max=vow;
+        }
+
+        count[j]=max;
+        
+        for(int i=0; str[i]!=0; i++){
+            if(str[i]=='y'){
+                ycount[j]++;
+            }
+            if(str[i]=='z' || str[i]=='v'){
+                ycount[j]+=2;
+            }
+            if(i<n-1 && str[i+1]!=' ' && str[i]=='q' && str[i+1]!='u'){
+                ycount[j]=1000;
+            }else if(i<n-1 && str[i+1]!=' ' && str[i]=='q' && str[i+1]=='u'){
+                ycount[j]=-100;
+            }
+            if(i<n-1 && str[i+1]!=' ' && str[i]=='x' && check(str[i+1])==0 ){
+                ycount[j]=1000;
+            }
+            if(i<n-1 && (str[i]=='o' && str[i+1] == 'o')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='e' && str[i+1]=='e')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='s' && str[i+1]=='h')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='s' && str[i+1]=='c')){
+                ycount[j]-=10;
+            }
+            if(i<n-1 && (str[i]=='s' && str[i+1]=='s')){
+                ycount[j]-=10;
+            }
+            if(i<n-1 && (str[i]=='s' && str[i+1]=='t')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='i' && str[i+1]=='e')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='t' && str[i+1]=='h')){
+                ycount[j]-=5;
+            }
+            if(i<n-1 && (str[i]=='o' && str[i+1]=='u')){
+                ycount[j]-=5;
+            }
+            if(i<n-2 && (str[i]=='i' && str[i+1]=='o' && str[i+2]=='n')){
+                ycount[j]-=100;
+            }
+            if(i<n-2 && (str[i]=='i' && str[i+1]=='n' && str[i+2]=='g')){
+                ycount[j]-=100;
+            }
+        }
+
+        if(arg>1)printf("%s = %d %d\n", str, count[j], ycount[j]);
     }
 
-    printf("%s\n", c);
+    int min=999, k;
+    for(int i=0; i<26; i++){
+        if(count[i]<min){
+            min=count[i];
+            k=i;
+        }
+        if(count[i]<=min+1){
+            if(ycount[i]<ycount[k]){
+                k=i;
+            }
+        }
+    }
+
+    printf("A few possible decryptions are:\n\n");
+
+    for(int i=0; i<26; i++){
+        incr(str);
+        if(count[i]<=min+1 && ycount[i]<n*5){
+            printf("%s\n", str);
+        }
+    }
+
+    printf("\n\nA possible decryption is:\n\n");
+
+    for(int i=0; i<=k; i++){
+        incr(str);
+    }
+
+    printf("%s\n\n", str);
 }
