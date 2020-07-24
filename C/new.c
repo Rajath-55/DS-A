@@ -1,91 +1,15 @@
-#include <stdio.h>
-
-void swap(int *xp, int *yp){
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
-
-void bubblesort(int arr[], int n){
-    int i, j;
-    for (i = 0; i < n-1; i++)
-    for (j = 0; j < n-i-1; j++)
-        if (arr[j] > arr[j+1])
-            swap(&arr[j], &arr[j+1]);
-}
-
+//If you are on mobile re-download on Desktop using codingclub.tech/static/myindia.txt
+//Save this whole text as myindia.cpp, now open this file in any compiler on Desktop
+#include<stdio.h>
 int main(){
-  int entryelements, rows;
-  printf("Enter no. of rows of sq. matrix\n");
-  scanf("%d", &rows);
-  printf("Enter no. of entries for matrix\n");
-  scanf("%d", &entryelements);
-  int arr[entryelements], newarray[rows];
-  printf("Enter the no.s\n");
-  for (int i=0; i<entryelements; i++){
-    scanf("%d", &arr[i]);
-  }
-
-  if (entryelements < rows*rows){
-    bubblesort(arr, entryelements);
-    for (int i=0; i<entryelements; i++){
-      newarray[i] = arr[i];
-    }
-    for (int i=entryelements; i<(rows*rows); i++){
-      newarray[i] = 0;
-    }
-  }
-
-  else if (entryelements = (rows*rows)){
-    bubblesort(arr, entryelements);
-    for (int i=0; i<entryelements; i++){
-      newarray[i] = arr[i];
-    }
-  }
-
-  else {
-    int elementstoremove = entryelements - (rows*rows);
-    bubblesort(arr, entryelements);
-    while(elementstoremove >= 0){
-      arr[0] = arr[entryelements-1] + 1;
-      bubblesort(arr, entryelements);
-      entryelements--, elementstoremove--;
-    }
-    for (int i=0; i<entryelements; i++){
-      newarray[i] = arr[i];
-    }
-  }
-
-  int dynamicarray[rows][rows];
-  int *p = newarray;
-  for (int i=0; i<rows; i++){
-    for (int j=0; j<rows; j++){
-      dynamicarray[i][j] = *p;
-      p++;
-    }
-  }
-
-  printf("Row Major\n");
-  for (int i=0; i<rows; i++){
-    for (int j=0; j<rows; j++){
-      printf("%d\t", dynamicarray[i][j]);
-      if (j == rows - 1){
-        printf("\n");
-      }
-    }
-  }
-
-  printf("\n");
-
-  printf("Column Major\n");
-  for (int i=0; i<rows; i++){
-    for (int j=0; j<rows; j++){
-      printf("%d\t", dynamicarray[j][i]);
-      if (j == rows - 1){
-        printf("\n");
-      }
-    }
-  }
-
-  return 0;
+    int a,b,c;
+    for (b=c=10; a="- FIGURE?, UMKC,XYZHello Folks,\TFy!QJu ROo TNn(ROo)SLq SLq ULo+UHs UJq TNn*RPn/QPbEWS_JSWQAIJO^\NBELPeHBFHT}TnALVlBLOFAkHFOuFETp\HCStHAUFAgcEAelclcn^r^r\\tZvYxXy\T|S~Pn SPm SOn TNn ULo0ULo#ULo-W\Hq!WFs XDt!"  [b+++21]; )
+    for(; a-- > 64 ; ) putchar ( ++c=='Z' ? c = c/ 9:33^b&1);
+    printf(" 🇮🇳 ❤ #LoveYouIndia, #PatrioticCoders Download and Share source code. To generate Map of India🇮🇳 with just 15 lines of code in C++ in just 2 minutes of time download codingclub.tech/static/myindia.txt  Jai Hind 🇮🇳") ;
+    //Step 1: Compile and run it.
+    //Step 2: Capture screenshot of India Map
+    //Step 3: Copy string between printf brackets line no.8 and paste it on Linkedin with screenshot of your output. Happy Coding ! Jai Hind !🇮🇳
+    //Original Code credits : IOCCC.
+    //This code was modified and written on 14th August at 20:03pm, 2019 at India #LearnInspireGrow 🇮🇳
+	return 0;
 }

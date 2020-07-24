@@ -1,12 +1,32 @@
+def solve():
+    n = int(input())
+    s = str(input())
+    counts = {}
+    flag=1
+    for i in range(len(s)):
+        counts[s[i]] = counts.get(s[i],0)+1
+    # print(counts)
+    for k in counts.keys():
+        if counts[k]&1:
+            flag=0
+            break
+    if flag:
+        print('YES')
+    else:
+        print('NO')                
+     
+
+        
+
+            
+
+
+
+
 t = int(input())
 while t!=0:
-    t -=1
-    n = int(input())
-    lst = list(map(int, input().strip().split()))
-    counts = dict()
-    visited = ()
-    for i in lst:
-        counts[i] = counts.get(i, 0) + 1
-    for k in range(n):
-        for j in range(k+1, n):
-            
+    t-=1
+    solve()
+    
+
+
