@@ -1,28 +1,25 @@
+def decimalToBinary(n):  
+    return str(bin(n).replace("0b", ""))
+
+
+def binaryConcat(a,b):
+    a1 = decimalToBinary(a)
+    b1= decimalToBinary(b)
+    c = a1+b1
+    d = b1+a1
+    xpy = int(c,2)
+    ypx = int(d,2)
+    return xpy-ypx
 def solve():
+    # print(decimalToBinary(200))
     n = int(input())
-    s = str(input())
-    counts = {}
-    flag=1
-    for i in range(len(s)):
-        counts[s[i]] = counts.get(s[i],0)+1
-    # print(counts)
-    for k in counts.keys():
-        if counts[k]&1:
-            flag=0
-            break
-    if flag:
-        print('YES')
-    else:
-        print('NO')                
-     
-
-        
-
-            
-
-
-
-
+    maxi=[]
+    arr = list(map(int,input().strip().split()))
+    for i in arr:
+        for j in arr:
+            maxi.append(binaryConcat(i,j))   
+    maxi = sorted(maxi)
+    print(maxi[len(maxi)-1])
 t = int(input())
 while t!=0:
     t-=1
