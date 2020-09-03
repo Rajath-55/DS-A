@@ -1,69 +1,51 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL)
 typedef long long ll;
 typedef long int l;
-
-
-
+#define endl '\n';
+ll mod = 1000000007;
+const long long mxN = 1e18;
+ll power(ll x, unsigned long long y, ll p)
+{
+    ll res = 1;
+    x = x % p;
+    if (x == 0)
+        return 0;
+    while (y > 0)
+    {
+        if (y & 1)
+            res = (res * x) % p;
+        y = y >> 1;
+        x = (x * x) % p;
+    }
+    return res;
+}
 
 void solve()
 {
- int n;
- int flag=1;
- 
- cin>>n;
- int lindex=-1,hindex=n;
- int a[n];
- vector<int>b;
- for(int i=0;i<n;++i){
-    cin>>a[i];
- }
- for(int i=0;i<n;++i){
-     b.push_back( abs(a[i]-i-1));
-
- }
- 
- 
-
-//  cout<<lindex<<" "<<hindex<<"\n";
-unordered_map<int,int>k;
-for(auto&x:b){
-    //  cout<<x<<" ";
-     if(x!=0){
-       k[x]++;
-    //    cout<<k[x]<<" "<<x<<" ";
-     }
-     
- }
- for(auto x : k){
-     if(x.second&1){
-         flag=0;
-     }
- }
- for(auto &x : b){
-     cout<<x<<" ";
- }
- if(flag){
-    
- }
+    ll p,f;
+    cin>>p>>f;
+    ll maxi = max(p,f);
+    ll dp;
+    ll cnts,cntw;
+    cin>>cnts>>cntw;
+    ll s,w;
+    cin>>s>>w;
+    ll res=0;
 
 
-  
-return;
+
 }
-
 int main()
 {
-    // fastio();
-    // int t;
-    // cin >> t;
-    // while (t--)
-    // {
-    //     solve();
-    // }
-    solve();
-
+    fastio();
+    int t;
+    cin >> t;
+    
+    while (t--)
+    {
+        solve();
+    }
     return 0;
 }
