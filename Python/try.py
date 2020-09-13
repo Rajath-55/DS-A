@@ -1,12 +1,18 @@
-n = int(input())
-counts = {}
-arr = list(map(int, input().strip().split()))
-
-for i in arr:
-    counts[i] = counts.get(i,0)+ 1
-maxi = -1
-for k,v in counts.items():
-    maxi = max(maxi, counts[k])
-print(maxi, len(counts))
+def solve():
+    n = int(input())
+    arr = list(map(int, input().strip().split()))
+    arr = arr[::-1]
+    for i in arr:
+        print(i, end=" ")
+    print()    
 
 
+
+
+
+
+
+t = int(input())
+while t!=0:
+    t -=1
+    solve()

@@ -1,11 +1,28 @@
+/* Author : Rajath V 
+   Challenge : Long
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL)
 typedef long long ll;
 typedef long int l;
 #define endl '\n';
+#define vll(s) vector<ll>s
 ll mod = 1000000007;
 const long long mxN = 1e18;
+
+//Template functions
+vector<string> split(const string &s, char delim) 
+{ 
+    vector<string> elems; 
+    stringstream ss(s); 
+    string item; 
+    while (getline(ss, item, delim)) 
+        elems.push_back(item); 
+  
+    return elems; 
+} 
 ll power(ll x, unsigned long long y, ll p)
 {
     ll res = 1;
@@ -21,43 +38,41 @@ ll power(ll x, unsigned long long y, ll p)
     }
     return res;
 }
-ll diff(ll a, ll b, ll x, ll y, ll n, bool f)
+vector<ll> inp(ll n)
 {
-    if (f)
+    vector<ll> a;
+    for (int i = 0; i < n; ++i)
     {
-        ll da = min(n, a - x);
-        // cout << "da " << a - x << endl;
-        if (da == a - x)
-        {
-            // cout << "ye " << n - a + x << endl;
-            b -= min(n - a + x, b-y);
-        }
-        a -= da;
+        ll inp;
+        cin >> inp;
+        a.push_back(inp);
     }
-    else
-    {
-        ll db = min(n, b - y);
-        if (db == b - y)
-        {
-            a -= min(n - b + y, a-x);
-        }
-        b -= db;
-    }
-    // cout << a << " " << b << endl;
-
-    return a * b;
+    return a;
 }
 
+void outp(vector<ll> a)
+{
+    for (auto x : a)
+        cout << x << " ";
+    cout << endl;
+}
+
+
+
+//Solve function for t test cases
 void solve()
 {
-    ll a, b, x, y, n;
-    cin >> a >> b >> x >> y >> n;
-    ll k = n;
-    ll res;
-    res = min(diff(a, b, x, y, n, true), diff(a, b, x, y, n, false));
-
-    cout << res << endl;
+    ll n;
+    cin >> n;
+    vll(a) = inp(n);
+    vll(res) = a;
+    outp(a);
+    ll count=0;
+    
+    outp(res);
 }
+
+
 int main()
 {
     fastio();
