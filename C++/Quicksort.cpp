@@ -19,7 +19,7 @@ void quicksortHelper(vector<int> array, int start, int end)
     if (array[left] <= array[pivot])
       left++;
     if (array[right] >= array[pivot])
-      right++;
+      right--;
   }
   swap(array, right, pivot);
   bool leftsmall = right - 1 - start < end - right - 1;

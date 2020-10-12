@@ -1,45 +1,71 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define fastio() ios_base::sync_with_stdio(false), cin.tie(NULL)
-typedef long long ll;
-typedef long int l;
-// str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
-void bin(unsigned long long n) 
-{ 
-    if (n > 1) 
-    bin(n>>1); 
-      
-    printf("%lld", n & 1);
-     
-} 
-void solve()
-{
-    ll n;
-    cin>>n;
-    unsigned long long  a[n];
-    for(ll i=0;i<n;++i){
-        cin>>a[i];
-        
-    }
-    bin(32);
+#include <bits/stdc++.h> 
+using namespace std; 
    
-
-
-
-
-
-    return;
-}
-
-int main()
-{
-    fastio();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    
-    return 0;
-}
+// Function to print all subarrays in the array which 
+// has sum 0 
+vector< pair<int, int> > findSubArrays(int arr[], int n) 
+{ 
+    // create an empty map 
+    unordered_map<int, vector<int> > map; 
+   
+    // create an empty vector of pairs to store 
+    // subarray starting and ending index 
+    vector <pair<int, int>> out; 
+   
+    // Maintains sum of elements so far 
+    int sum = 0; 
+   
+    for (int i = 0; i < n; i++) 
+    { 
+        // add current element to sum 
+        sum += arr[i]; 
+   
+        // if sum is 0, we found a subarray starting 
+        // from index 0 and ending at index i 
+        if (sum == 0) 
+            out.push_back(make_pair(0, i)); 
+   
+        // If sum already exists in the map there exists 
+        // at-least one subarray ending at index i with 
+        // 0 sum 
+        if (map.find(sum) != map.end()) 
+        { 
+            // map[sum] stores starting index of all subarrays 
+            vector<int> vc = map[sum]; 
+            for (auto it = vc.begin(); it != vc.end(); it++) 
+                out.push_back(make_pair(*it + 1, i)); 
+        } 
+   
+        // Important - no else 
+        map[sum].push_back(i); 
+    } 
+   
+    // return output vector 
+    return out; 
+} 
+   
+// Utility function to print all subarrays with sum 0 
+void print(vector<pair<int, int>> out) 
+{ 
+    for (auto it = out.begin(); it != out.end(); it++) 
+        cout << "Subarray found from Index " << 
+            it->first << " to " << it->second << endl; 
+} 
+   
+// Driver code 
+int main() 
+{ 
+    int arr[] = {1,-5,2,3}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+   
+    vector<pair<int, int> > out = findSubArrays(arr, n); 
+   
+    // if we didn’t find any subarray with 0 sum, 
+    // then subarray doesn’t exists 
+    if (out.size() == 0) 
+        cout << "No subarray exists"; 
+    else
+        cout<<out.size(); 
+   
+    return 0; 
+} 

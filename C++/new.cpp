@@ -1,20 +1,27 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-void swapper(int *arr, int i, int j, int k){
-    int tempi = *(arr+i);
-    int tempj = *(arr+j);
-    int tempk = *(arr+k);
-    *(arr+j)=tempi;
-    *(arr+k)=tempj;
-    *(arr+i)=tempk;
-    return;
-}
 
+//To check if paranthesis match properly
 int main() {
-	int arr[5]={1,2,3,4,5};
-    swapper(arr, 1,2,3);
-    for(int i=0;i<5;++i){
-        cout<<arr[i]<<" ";
+	string s; cin>>s;
+    int count = 1;
+    bool res = true;
+    int n = s.length();
+    if(s[0] !='(') res = false;
+    if(s[n-1] !=')') res=false;
+
+    for(int i=1;i<n;++i){
+        // cout<<s[i]<<" "<<count<<endl;
+        if(s[i] == '(') count++;
+        if(s[i] == ')') count--;
+        if(count ==0 && s[i] !='(' && s[i] !=')') res = false;
+
+    }
+    if(count ==0){
+    if(res) cout<<"YES "<<s<<endl;
+    else cout<<"NO "<<s<<endl;
+    }else{
+        cout<<"NO "<<s<<endl; 
     }
  }
