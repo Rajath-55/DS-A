@@ -201,8 +201,28 @@ void solve()
 {
    ll n;
    cin>>n;
-   ll res = log2(n) +1;
-   cout<<res<<endl;
+   if(n==1){
+       cout<<2<<endl;
+       return;
+   }
+   ll a[n][n];
+   for(ll i=0;i<n;++i){
+       for(ll j=0; j<n;++j){
+           if(j==i || j==n-i-1){
+               a[i][j]=1;
+           }else a[i][j]=0;
+       }
+   }
+   if(n%2==1){
+       a[n/2][0]=1;
+       a[0][n/2]=1;
+   }
+   for(ll i=0;i<n;++i){
+       for(ll j=0;j<n;++j){
+           cout<<a[i][j]<<" ";
+       }
+       cout<<endl;
+   }
 
 }
 
@@ -216,6 +236,6 @@ int main()
     {
         solve();
     }
-    
+
     return 0;
 }
