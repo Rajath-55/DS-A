@@ -1,44 +1,44 @@
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
-void swap(vector<int> array, int i, int j)
-{
-  int temp = array[i];
-  array[i] = array[j];
-  array[j] = temp;
+void swap(int *a, int *b){
+    int temp = *a;
+    *a= *b;
+    *b = temp;
 }
-void quicksortHelper(vector<int> array, int start, int end)
-{
-  if (start >= end)
-    return;
-  int left = start + 1;
-  int right = end, pivot = start;
-  while (left <= right)
-  {
-    if (array[left] < array[pivot] && array[right] > array[pivot])
-      swap(array, left, right);
-    if (array[left] <= array[pivot])
-      left++;
-    if (array[right] >= array[pivot])
-      right--;
-  }
-  swap(array, right, pivot);
-  bool leftsmall = right - 1 - start < end - right - 1;
-  if (leftsmall)
-  {
-    quicksortHelper(array, start, right - 1);
-    quicksortHelper(array, right + 1, end);
-  }
-  else
-  {
-    quicksortHelper(array, right + 1, end);
-    quicksortHelper(array, start, right - 1);
-  }
+int partition(int arr[], int low, int high){
+    int pivot = arr[high];
+    int i=low -1;
+    for(int j=low;j<high;j++){
+        if(arr[j]<pivot){
+            i++;
+            swap(&arr[i], &arr[j] );
+        }
+    }
+    swap(&arr[i+1], &arr[high]);
+    return i+1;
 }
-
-vector<int> quickSort(vector<int> array)
-{
-  // Write your code here.
-  quicksortHelper(array, 0, array.size() - 1);
-
-  return {array};
+void QuickSort(int arr[], int low, int high){
+    if(low<high){
+        int part_index = partition(arr, low, high);
+        QuickSort(arr, part_index+1, high);
+        QuickSort(arr, low, part_index -1);
+    }
+}
+int main(){
+    int n;
+    cout<<"Enter no of Elements\n";
+    cin>>n;
+    int a[n];
+    cout<<"Enter Array Elements\n";
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    QuickSort(a, 0, n-1);
+    cout<<"After Sorting :\n";
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+    
+    return 0;
 }
