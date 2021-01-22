@@ -1,12 +1,12 @@
 /* Author : Rajath V 
-   
+   Challenge : Codechef
 */
 
-#pragma GCC optimize("Ofast,unroll-loops") 
-#pragma GCC target("avx,avx2,fma") 
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp> 
-using namespace __gnu_pbds; 
+#pragma GCC optimize("Ofast,unroll-loops")
+#pragma GCC target("avx,avx2,fma")
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -109,14 +109,15 @@ inline ll ceiling(ll n, ll x)
     return (n % x ? n / x + 1 : n / x);
 }
 
-vector<ll> preFix(vector<ll>a){
-    vector<ll>preSum(a.size(),0);
+vector<ll> preFix(vector<ll> a)
+{
+    vector<ll> preSum(a.size(), 0);
     preSum[0] = a[0];
-   for(ll i=1;i<a.size();++i){
-       preSum[i] = preSum[i-1] + a[i];
-   }
-   return preSum;
-   
+    for (ll i = 1; i < a.size(); ++i)
+    {
+        preSum[i] = preSum[i - 1] + a[i];
+    }
+    return preSum;
 }
 
 /****** Template of some basic operations *****/
@@ -174,37 +175,42 @@ inline T readInt()
     return n * s;
 }
 
-/* More template functions */
-
-ll minLenSubArray(vector<ll>a, ll k ){
+ll minLenSubArray(vector<ll> a, ll k)
+{
     ll n = a.size();
-    unordered_map<ll,ll>counts;
-    counts[a[0]]=0;
-    for(ll i=1;i<n;++i){
-        a[i] = a[i]+a[i-1];
-        counts[a[i]]=i;
+    unordered_map<ll, ll> counts;
+    counts[a[0]] = 0;
+    for (ll i = 1; i < n; ++i)
+    {
+        a[i] = a[i] + a[i - 1];
+        counts[a[i]] = i;
     }
     ll len = INT_MAX;
-    for(ll i=0;i<n;++i){
-        if(a[i]<k)
-        continue;
-        else{
+    for (ll i = 0; i < n; ++i)
+    {
+        if (a[i] < k)
+            continue;
+        else
+        {
             ll x = a[i] - k;
-            
-            if(x==0){
-                len = min(len,i);
+
+            if (x == 0)
+            {
+                len = min(len, i);
             }
-            if(counts.find(x)==counts.end()){
+            if (counts.find(x) == counts.end())
+            {
                 continue;
-            }else{
-                len = min(len, i-counts[x]);
+            }
+            else
+            {
+                len = min(len, i - counts[x]);
             }
         }
-        cout<<endl;
+        cout << endl;
     }
     return len;
 }
-
 /************************************/
 
 /******* Debugging Class Template *******/
@@ -244,100 +250,62 @@ private:
 #define debug(args...) // Just strip off all debug tokens
 #endif
 
-
 //Solve function for t test cases
-
-bool check(string s1, string s2){
-    map<char,int>mp;
-    for(auto x:s1)
-     mp[x]++;
-
-     for(auto x:s2){
-         if(mp[x]>0){
-             return true;
-         }
-     }
-     return false;
-}
 
 void solve()
 {
-    
-    ll n;
-    cin>>n;
-    vector<string>a;
-    for(ll i=0;i<n;++i){
-        string t;
-        cin>>t;
-        a.push_back(t);
-    }
-    set<string>s,s1;
-   
-    vector<string>sets;
-    for(auto x : a){
-        set<char>temp;
-        for(auto y : x){
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> h = inp(n);
+    sort(h.begin(), h.end(), greater<ll>());
+    //   outp(h);
+    unordered_set<ll> counts1;
+    counts1.insert(h[0]);
+    ll s = h[0];
+    ll res = -1;
+    for (ll i = 0; i < n; ++i)
+    {
+        unordered_set<ll> temp;
+        s += h[i];
+        for (auto x : counts1)
+        {
+            ll y = x;
+            cout << "i : " << i << " x : " << x << " ";
             temp.insert(y);
+            temp.insert(h[i]);
+            temp.insert(y + h[i]);
+            if ((y + h[i]) >= k && (s - y - h[i]) >= k)
+            {
+                res = n - i;
+                break;
+            }
+            if (h[i] >= k && s - h[i] >= k)
+            {
+                res = n - i;
+                break;
+            }
         }
-        string t="";
-        for(auto x : temp){
-            t+=(char)x;
+        if (res != -1)
+        {
+            break;
         }
-        sets.push_back(t);
+        counts1 = temp;
+        cout << endl;
     }
-    
-    ll count = 0;
-    for(auto x : sets){
-        s.insert(x);
-    }
-    sets.clear();
-    for(auto x : s){
-       sets.push_back(x);
-    }
-    vector<bool>visited(26,false);
-    // for(string x:s){
-    //     cout<<x<<endl;
-    // }
-    for(auto x:s){
-        for(auto y : x ){
-           if(visited[(int)y-'a']){
-               count++;
-           }else{
-               visited[(int)y-'a'] = true;
-           }
-        }
-    }
-    if(count >= s.size()){
-        cout<<1<<endl;
-        return;
-    }
-    
-    cout<<s.size()-count<<endl;
-
-    
-
-    
-      
-    
-
-
-   
-  
-
-
+    cout << res << endl;
 }
 
 int main()
 {
     fastio();
-    // int t;
-    // cin >> t;
+    int t;
+    cin >> t;
 
-    // while (t--)
-    // {
-    //     solve();
-    // }
-    solve();
+    while (t--)
+    {
+        solve();
+    }
+    // solve();
 
     return 0;
 }
