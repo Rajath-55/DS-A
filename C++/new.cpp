@@ -1,77 +1,54 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 using namespace std;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+// template <typename T>
+// using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-class Solution
+vector<vector<int>> threeSum(vector<int> &nums)
 {
-public:
-    void bfsprint(vector<vector<int>> v, int sv)
+    vector<vector<int>> res;
+    if (nums.size() == 0 || nums.size() == 1 || nums.size() == 2)
+        return {};
+    sort(nums.begin(), nums.end());
+    set<vector<int>> s;
+    for (int i = 0; i < nums.size() - 2; ++i)
     {
-        int n = v.size();
-        vector<bool> visited(n, false);
-        queue<int> q;
-        q.push(sv);
-        visited[sv] = true;
-        while (!q.empty())
+        int j = i + 1, k = nums.size() - 1;
+        while (j < k)
         {
-            int cv = q.front();
-            q.pop();
-            cout << cv << endl;
-            for (int i = 0; i < n; ++i)
-            {
-                if (v[cv][i] && !visited[i])
-                {
-                    q.push(i);
-                    visited[i] = true;
-                }
+            int su = nums[i] + nums[j] + nums[k];
+            cout<<nums[i]<<" "<<nums[j]<<" "<<nums[k]<<endl;
+            cout<<su<<endl;
+            if (su == 0){
+                s.insert({nums[i], nums[j], nums[k]});
+                j++;
             }
+            if (su > 0)
+                k--;
+            if (su < 0)
+                j++;
         }
     }
-    void dfsprint(vector<vector<int>> v, int sv, vector<bool> &visited)
-    {
-        cout << sv << endl;
-        visited[sv] = true;
-        int n = v.size();
-        for (int i = 0; i < n; ++i)
-        {
-            if (v[sv][i] && visited[i] == false)
-            {
-                dfsprint(v, i, visited);
-            }
-        }
-    }
-};
-
-string revs(string s, int start, int end)
-{
-
-    if (((s[start] >= 'd' && s[start] <= 's') || (s[start] <= 'D' || s[start] <= 'S')) && ((s[end] >= 'd' && s[end] <= 's') || (s[end] <= 'D' || s[end] <= 'S')))
-    {
-        
-        swap(s[start], s[end]);
-        
-    }
-
-    
-    if (end - start <= 2)
-    {
-        return s;
-    }
-
-    return revs(s, start + 1, end - 1);
+    for (auto x : s)
+        res.push_back(x);
+    return res;
 }
 
 int main()
 {
-   string s;
-   getline(cin,s);
-   cout<<revs(s, 0, s.size()-1)<<endl;
+    vector<int>temp={-2,0,1,1,2};
+    vector<vector<int>>res = threeSum(temp);
+    for(auto x : res)
+    {
+        for(auto y : x){
+            cout<<y<<" ";
+        }
+        cout<<endl;
+    }
+    
 }
-
 
 /*
 555

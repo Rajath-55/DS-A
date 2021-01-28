@@ -263,81 +263,37 @@ bool check(string s1, string s2){
 void solve()
 {
     
-    ll n;
-    cin>>n;
-    vector<string>a;
-    for(ll i=0;i<n;++i){
-        string t;
-        cin>>t;
-        a.push_back(t);
+    ll a,b,k;
+    cin>>a>>b>>k;
+    vector<ll>A = inp(k);
+    vector<ll>B = inp(k);
+    ll ans=0;
+    map<int,int>degrees1,degrees2;
+    for(auto x:A){
+        degrees1[x]++;
     }
-    set<string>s,s1;
-   
-    vector<string>sets;
-    for(auto x : a){
-        set<char>temp;
-        for(auto y : x){
-            temp.insert(y);
-        }
-        string t="";
-        for(auto x : temp){
-            t+=(char)x;
-        }
-        sets.push_back(t);
+    for (auto x : B)
+    {
+        degrees2[x]++;
     }
-    
-    ll count = 0;
-    for(auto x : sets){
-        s.insert(x);
+    for(ll i=0;i<k;++i){
+        ans+=k+1-degrees1[A[i]]-degrees2[B[i]];
     }
-    sets.clear();
-    for(auto x : s){
-       sets.push_back(x);
-    }
-    vector<bool>visited(26,false);
-    // for(string x:s){
-    //     cout<<x<<endl;
-    // }
-    for(auto x:s){
-        for(auto y : x ){
-           if(visited[(int)y-'a']){
-               count++;
-           }else{
-               visited[(int)y-'a'] = true;
-           }
-        }
-    }
-    if(count >= s.size()){
-        cout<<1<<endl;
-        return;
-    }
-    
-    cout<<s.size()-count<<endl;
-
-    
-
-    
-      
-    
-
-
-   
-  
-
-
+    cout<<ans/2<<endl;
 }
 
+// 5*2020 + 6*2021 == 
 int main()
 {
     fastio();
-    // int t;
-    // cin >> t;
+    int t;
+    cin >> t;
 
-    // while (t--)
-    // {
-    //     solve();
-    // }
-    solve();
+    while (t--)
+    {
+        solve();
+    }
+    // solve();
 
     return 0;
 }
