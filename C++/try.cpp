@@ -161,6 +161,7 @@ inline T readInt()
 
 void solve()
 {
+<<<<<<< HEAD
   ll n,k;
   cin>>n>>k;
   vector<ll>a = inp(n);
@@ -174,6 +175,9 @@ void solve()
 
 
 
+=======
+ 
+>>>>>>> 6905fddb0fe5696b17137bdfa296fe2d1af3a76b
 
 
 }
@@ -181,6 +185,7 @@ void solve()
 int main()
 {
     fastio();
+<<<<<<< HEAD
     // int t;
     // cin >> t;
     
@@ -189,6 +194,15 @@ int main()
     //     solve();
     // }
     solve();
+=======
+    int t;
+    cin >> t;
+
+    while (t--)
+    {
+        solve();
+    }
+>>>>>>> 6905fddb0fe5696b17137bdfa296fe2d1af3a76b
 
     return 0;
 }
