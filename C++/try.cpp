@@ -1,12 +1,6 @@
 /* Author : Rajath V 
-   
+   Challenge : Codeforces
 */
-
-#pragma GCC optimize("Ofast,unroll-loops") 
-#pragma GCC target("avx,avx2,fma") 
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp> 
-using namespace __gnu_pbds; 
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -109,16 +103,6 @@ inline ll ceiling(ll n, ll x)
     return (n % x ? n / x + 1 : n / x);
 }
 
-vector<ll> preFix(vector<ll>a){
-    vector<ll>preSum(a.size(),0);
-    preSum[0] = a[0];
-   for(ll i=1;i<a.size();++i){
-       preSum[i] = preSum[i-1] + a[i];
-   }
-   return preSum;
-   
-}
-
 /****** Template of some basic operations *****/
 template <typename T, typename U>
 inline void amin(T &x, U y)
@@ -173,127 +157,39 @@ inline T readInt()
 
     return n * s;
 }
-
-/* More template functions */
-
-ll minLenSubArray(vector<ll>a, ll k ){
-    ll n = a.size();
-    unordered_map<ll,ll>counts;
-    counts[a[0]]=0;
-    for(ll i=1;i<n;++i){
-        a[i] = a[i]+a[i-1];
-        counts[a[i]]=i;
-    }
-    ll len = INT_MAX;
-    for(ll i=0;i<n;++i){
-        if(a[i]<k)
-        continue;
-        else{
-            ll x = a[i] - k;
-            
-            if(x==0){
-                len = min(len,i);
-            }
-            if(counts.find(x)==counts.end()){
-                continue;
-            }else{
-                len = min(len, i-counts[x]);
-            }
-        }
-        cout<<endl;
-    }
-    return len;
-}
-
 /************************************/
-
-/******* Debugging Class Template *******/
-#define DEBUG
-
-#ifdef DEBUG
-
-#define debug(args...) (Debugger()), args
-
-class Debugger
-{
-public:
-    Debugger(const std::string &_separator = " - ") : first(true), separator(_separator) {}
-
-    template <typename ObjectType>
-    Debugger &operator,(const ObjectType &v)
-    {
-        if (!first)
-        std:
-            cerr << separator;
-        std::cerr << v;
-        first = false;
-        return *this;
-    }
-    ~Debugger()
-    {
-    std:
-        cerr << endl;
-    }
-
-private:
-    bool first;
-    std::string separator;
-};
-
-#else
-#define debug(args...) // Just strip off all debug tokens
-#endif
-
-
-//Solve function for t test cases
-
-bool check(string s1, string s2){
-    map<char,int>mp;
-    for(auto x:s1)
-     mp[x]++;
-
-     for(auto x:s2){
-         if(mp[x]>0){
-             return true;
-         }
-     }
-     return false;
-}
 
 void solve()
 {
-    
-    ll a,b,k;
-    cin>>a>>b>>k;
-    vector<ll>A = inp(k);
-    vector<ll>B = inp(k);
-    ll ans=0;
-    map<int,int>degrees1,degrees2;
-    for(auto x:A){
-        degrees1[x]++;
-    }
-    for (auto x : B)
-    {
-        degrees2[x]++;
-    }
-    for(ll i=0;i<k;++i){
-        ans+=k+1-degrees1[A[i]]-degrees2[B[i]];
-    }
-    cout<<ans/2<<endl;
+  ll n,k;
+  cin>>n>>k;
+  vector<ll>a = inp(n);
+  vector<ll>subs;
+  for(int i=1;i<n;++i) subs.push_back(a[i-1] - a[i]);
+  sort(subs.begin(), subs.end());
+  int res = a[n-1] - a[0];
+//   cout<<res<<endl;
+  for(int i=0;i<k-1;++i) res+=subs[i];
+  cout<<res<<endl; 
+
+
+
+
+
 }
 
-// 5*2020 + 6*2021 == 
 int main()
 {
     fastio();
-    int t;
-    cin >> t;
-
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
 
     return 0;
 }
+

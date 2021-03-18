@@ -1,62 +1,29 @@
 #include <bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
 using namespace std;
-// template <typename T>
-// using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-vector<vector<int>> threeSum(vector<int> &nums)
+bool checkStraightLine(vector<vector<int>> &coordinates)
 {
-    vector<vector<int>> res;
-    if (nums.size() == 0 || nums.size() == 1 || nums.size() == 2)
-        return {};
-    sort(nums.begin(), nums.end());
-    set<vector<int>> s;
-    for (int i = 0; i < nums.size() - 2; ++i)
+    set<int> slopes;
+    for (int i = 1; i < coordinates.size(); ++i)
     {
-        int j = i + 1, k = nums.size() - 1;
-        while (j < k)
+        if (coordinates[i][0] == coordinates[i - 1][0])
         {
-            int su = nums[i] + nums[j] + nums[k];
-            cout<<nums[i]<<" "<<nums[j]<<" "<<nums[k]<<endl;
-            cout<<su<<endl;
-            if (su == 0){
-                s.insert({nums[i], nums[j], nums[k]});
-                j++;
-            }
-            if (su > 0)
-                k--;
-            if (su < 0)
-                j++;
+            slopes.insert(INT_MIN);
+           
+        }else{
+        int slope = (coordinates[i][1] - coordinates[i - 1][1]) / (coordinates[i][0] - coordinates[i - 1][0]);
+        // cout<<slope<<endl;
+        slopes.insert(slope);
         }
     }
-    for (auto x : s)
-        res.push_back(x);
-    return res;
+    return slopes.size() == 1;
 }
 
 int main()
 {
-    vector<int>temp={-2,0,1,1,2};
-    vector<vector<int>>res = threeSum(temp);
-    for(auto x : res)
-    {
-        for(auto y : x){
-            cout<<y<<" ";
-        }
-        cout<<endl;
-    }
-    
+    vector<vector<int>> coords = { {4, -3},
+                                   {1, 0},
+                                   {3, -1},
+                                   {0, -1},
+                                   {-5, 2} };
+    cout<<checkStraightLine(coords);
 }
-
-/*
-555
-550
-505
-500
-055
-050
-005
-000
-*/
