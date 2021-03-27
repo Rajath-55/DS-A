@@ -9,5 +9,5 @@
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "editor.fontSize": 17,
-    "python.pythonPath": "C:\\Users\\rajat\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe"
+    "python.pythonPath": "/usr/bin/python3"
 }

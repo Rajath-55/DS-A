@@ -102,103 +102,67 @@ inline ll ceiling(ll n, ll x)
 {
     return (n % x ? n / x + 1 : n / x);
 }
-ll count(string s, ll x, ll y){
-    ll res = 0;
-    for(int i=0;i<s.length()-1;++i){
-        if(s[i]=='J' && s[i+1]=='C') res+=y;
-        if(s[i]=='C' && s[i+1]=='J') res+=x;
+
+ll revsort(vector<ll> &a){
+    ll count = 0;
+    for(ll i=0; i<a.size()-1;++i){
+        ll idx = i;
+        for(ll j=i;j<a.size();++j){
+            if(a[j] < a[idx]){
+                idx = j;
+            }
+        }
+        count+= idx - i + 1;
+        reverse(a.begin()+i, a.begin()+idx+1);
+        // outp(a);
+        // cout<<count<<endl;
+
     }
-    return res;
+    return count;
 }
+void heapPermutation(vector<ll>&a, ll s, ll c, map<ll,vector<ll> >&mp){
+    
+    if(s==1){
+        vector<ll>temp = a;
+        ll ans = revsort(temp);
+        mp[ans] = a;
+        return;
+    }
+    for(int i=0;i<s;++i){
+      
+        heapPermutation(a,s-1,c,mp);
+        if(s%2==1) swap(a[0],a[s-1]);
+        else swap(a[i], a[s-1]);
+    }
+}
+
 
 void solve(int t)
 {
-    
-    ll x, y;
-    string s;
-    cin>>x>>y>>s;
-    
-    ll ans = 0;
-    if (s.size() == 1)
-    {
-        cout << "Case #" << t << ": " << 0 << endl;
-        return;
-    }
-    if (s.size() == 2)
-    {
-        ans = count(s, x, y);
-        cout << "Case #" << t << ": " << ans << endl;
-        return;
-    }
-   
-    for(int i=0;i<s.size();i++){
-        if(i==0){
-            if(s[i]=='?'){
-                int idx = i;
-                while(s[idx]=='?' && idx <= s.size()) idx++;
-                if(idx > s.size()-1){
-                    break;
-                }
-                if(s[idx] == 'J'){
-                    for(int j=i;j<idx;++j) s[i]='J';
-                }
-                if(s[idx] == 'C'){
-                    for(int j=i;j<idx;++j) s[i]='C';
-                }
-            
-            }
-        }else{
-            
-            if(s[i]=='?'){
-                int idx = i;
-                while(s[idx]=='?' && idx <= s.size()) {idx++;}
-                if(idx > s.size()-1){ break;}
-                if(s[idx] == 'J' && s[i-1] =='J'){
-                    for(int j=i;j<idx;++j) s[i]='J';
-                }
-                if(s[idx] == 'C' && s[i-1]=='C'){
-                    for(int j=i;j<idx;++j) s[i]='C';
-                }
-                if((s[i-1]=='J' && s[idx]=='C') || (s[i-1]=='C' && s[idx]=='J')){
-                    for(int j=i;j<idx;++j) s[i]= 'C';
-                }
-            
-            }
-
-        }
-        
-    }
-    // cout<<s<<endl;
-    ans+=count(s,x,y);
-
-    
-    cout << "Case #" << t << ": " << ans << endl;
+  ll n,c;
+  cin>>n>>c;
+  vector<ll>a;
+  for(ll i=1;i<=n;++i) a.push_back(i);
+  string ans = "IMPOSSIBLE";
+  map<ll,vector<ll> >mp;
+  heapPermutation(a, n, c,mp);
+  if(mp.find(c)==mp.end()){
+      cout<<"Case #"<<t<<": "<<ans<<"\n";
+      return;
+  }
+  vector<ll>res = mp[c];
+  cout<<"Case #"<<t<<": ";
+  for(auto x : res) cout<<x<<" ";
+  cout<<"\n";
+  
 }
 
-/*
-
-JC????CJ
-x = 5 y = 2
-
-JC??C?CJ
-
-J?C => C-> X, J -> X
-C?J => C->Y, J -> Y
-C?? => C-> 0, J -> Y
-J?? => C -> X, J -> 0
-??C
-
-????JC
-????CJ
-JJJJJC
-J????CC
-JJJJJCC 1 jc
-JCCCCCC 1 jc
 
 
 
 
-*/
+
+
 
 int main()
 {
@@ -207,12 +171,12 @@ int main()
     int t;
     cin >> t;
     int k = t;
-
+    
     while (t > 0)
     {
-        
         int s = k - t + 1;
         solve(s);
         t--;
     }
 }
+
